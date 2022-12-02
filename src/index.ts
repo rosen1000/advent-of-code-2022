@@ -16,7 +16,7 @@ switch (args[0]?.toLowerCase()) {
     console.log('Updated config');
     break;
   case 'run':
-    let input = readFileSync('./solutions/day-1/input.txt').toString();
+    let input = readFileSync(`./solutions/day-${config.day}/input.txt`).toString();
     console.log(solution[`part${args[1]}` as 'part1' | 'part2'](input));
 
     break;
@@ -29,6 +29,8 @@ switch (args[0]?.toLowerCase()) {
       )
       .then((res) => res.data)
       .then((data) => {
+        if (!existsSync('./solutions')) mkdirSync(`./solutions`);
+        if (!existsSync(`./solutions/day-${config.day}`)) mkdirSync(`./solutions/day-${config.day}`);
         writeFileSync(`./solutions/day-${config.day}/input.txt`, data.trim());
       })
       .catch(console.error);
